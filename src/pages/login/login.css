@@ -1,0 +1,15 @@
+.login-page {
+  background-image: url("../../assets/image/background.png"),
+    radial-gradient(#444cf7 0.5px, transparent 0),
+    radial-gradient(#444cf7 0.5px, #e5e5f7 0);
+  align-items: center;
+  background-color: #e5e5f7;
+
+  background-position: 50%;
+  background-size: cover;
+  display: flex;
+
+  justify-content: center;
+  backdrop-filter: blur (10px);
+  position: relative;
+}

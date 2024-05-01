@@ -1,0 +1,11 @@
+.pagenotfound {
+  height: 100vh;
+  background-image: url("../../assets/image/background.png");
+  background-size: cover;
+  background-position: center;
+}
+.notfound {
+  backdrop-filter: blur(3px);
+  background-color: rgba(55, 60, 65, 0.7);
+  border-radius: 5px;
+}
