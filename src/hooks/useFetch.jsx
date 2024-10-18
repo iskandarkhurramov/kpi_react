@@ -111,13 +111,12 @@ export function getDataFile(url) {
       try {
         await axios
           .get(url, {
-            responseType: 'blob',
+            responseType: "blob",
             headers: {
               Authorization: `Bearer ${token}`,
             },
           })
           .then((req) => {
-            
             console.log(req);
             setIsPanding(false);
             setDataAll(req);
@@ -139,11 +138,3 @@ export function getDataFile(url) {
 
   return { dataAll, error, isPanding };
 }
-
-
-const response = await fetch(url, {
-  method: "POST",
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-});
