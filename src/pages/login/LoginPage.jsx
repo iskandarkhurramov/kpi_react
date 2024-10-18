@@ -216,7 +216,7 @@ function LoginPage() {
             <a
               // onClick={otish}
               href="https://hemis.otmsamvmi.uz/oauth/authorize?client_id=8&response_type=code&redirect_uri=https%3A%2F%2Fkpi-react.vercel.app">
-              Hemis orqali kirish
+              Hemis orqali kirish qq
             </a>
             {/* <button
               type="button"
