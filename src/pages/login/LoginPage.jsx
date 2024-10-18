@@ -32,9 +32,6 @@ function LoginPage() {
     // })
     axios
       .post("https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth", {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
         redirect_url: currentUrl,
         code: code,
       })
@@ -47,64 +44,63 @@ function LoginPage() {
     // code degan qiymat ma'lumotlar bilan ishlovchi funksiya chaqirishingiz mumkin
   }, [location]);
   // };
-  const loginHemis = async () => {
-    try {
-      const response = await fetch(
-        "https://panel.ssuv.uz/api/v1/hemis-id/auth-url",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: JSON.stringify({
-            redirect_url: currentUrl,
-          }),
-        }
-      );
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+  // const loginHemis = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://panel.ssuv.uz/api/v1/hemis-id/auth-url",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           redirect_url: currentUrl,
+  //         }),
+  //       }
+  //     );
+  //     console.log(response);
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
-    }
-    // axios
-    //   .post("https://panel.ssuv.uz/api/v1/hemis-id/auth-url", {
-    //     redirect_url: "http://127.0.0.1:5173/login",
-    //   })
-    //   .then((req) => {
-    //     console.log(req);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  };
-  const onFormSubmit = (e) => {
-    console.log(usernameIn.current.value, emailIn.current.value);
-    e.preventDefault();
-    axios
-      .post("https://panel.ssuv.uz/api/v1/auth/login", {
-        username: usernameIn.current.value,
-        email: emailIn.current.value,
-      })
-      .then((req) => {
-        const data = req.data;
-        console.log(data);
-        if (data.token) {
-          // Agar kirish muvaffaqiyatli bo'lsa, tokenni saqlash va home sahifasiga o'tish
-          window.localStorage.setItem("token", data.token);
-          // window.location.href = "../index.html";
-          navigate("/loading");
-        } else {
-          alert("Kirish xato. Iltimos, tekshirib qaytadan urinib ko‘ring.");
-        }
-      })
-      .catch((error) => console.error("Xatolik:", error));
-  };
+  //     const data = await response.json();
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.error("There was a problem with the fetch operation:", error);
+  //   }
+  // axios
+  //   .post("https://panel.ssuv.uz/api/v1/hemis-id/auth-url", {
+  //     redirect_url: "http://127.0.0.1:5173/login",
+  //   })
+  //   .then((req) => {
+  //     console.log(req);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+
+  // const onFormSubmit = (e) => {
+  //   console.log(usernameIn.current.value, emailIn.current.value);
+  //   e.preventDefault();
+  //   axios
+  //     .post("https://panel.ssuv.uz/api/v1/auth/login", {
+  //       username: usernameIn.current.value,
+  //       email: emailIn.current.value,
+  //     })
+  //     .then((req) => {
+  //       const data = req.data;
+  //       console.log(data);
+  //       if (data.token) {
+  //         // Agar kirish muvaffaqiyatli bo'lsa, tokenni saqlash va home sahifasiga o'tish
+  //         window.localStorage.setItem("token", data.token);
+  //         // window.location.href = "../index.html";
+  //         navigate("/loading");
+  //       } else {
+  //         alert("Kirish xato. Iltimos, tekshirib qaytadan urinib ko‘ring.");
+  //       }
+  //     })
+  //     .catch((error) => console.error("Xatolik:", error));
+  // };
   return (
     <div className="w-screen h-screen login-page">
       <div className=" m-auto flex min-h-max flex-1 flex-col justify-center px-6 md:py-8 py-5 lg:px-8 max-w-80 md:max-w-lg shadow-3xl backdrop-blur-sm rounded ">
