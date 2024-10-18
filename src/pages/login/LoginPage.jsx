@@ -30,17 +30,26 @@ function LoginPage() {
     //     code: code,
     //   }),
     // })
-    axios
-      .post("https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth", {
-        redirect_url: currentUrl,
-        code: code,
-      })
-      .then((req) => {
-        console.log(req);
-      })
-      .catch((error) => {
+    const dataniol = async () => {
+      try {
+        const response = await axios.post(
+          "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
+          {
+            redirect_url: currentUrl,
+            code: code,
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
         console.log(error);
-      });
+      }
+    };
+    dataniol();
     // code degan qiymat ma'lumotlar bilan ishlovchi funksiya chaqirishingiz mumkin
   }, [location]);
   // };
