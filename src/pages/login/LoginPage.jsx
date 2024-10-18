@@ -31,19 +31,43 @@ function LoginPage() {
     //   }),
     // })
     const dataniol = async () => {
+      // try {
+      //   const response = await axios.post(
+      //     "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
+      //     {
+      //       redirect_url: "https://kpi-react.vercel.app",
+      //       code: code,
+      //     }
+      //   );
+      //   if (!response.ok) {
+      //     throw new Error("Network response was not ok");
+      //   }
+
+      //   const data = await response.json();
+      //   console.log(data);
+      // } catch (error) {
+      //   console.log(error);
+      // }
       try {
+        const formData = new FormData();
+        formData.append("redirect_url", "https://kpi-react.vercel.app");
+        formData.append("code", code);
+
         const response = await axios.post(
           "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
+          formData,
           {
-            redirect_url: "https://kpi-react.vercel.app",
-            code: code,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           }
         );
-        if (!response.ok) {
+
+        if (!response.status === 200) {
           throw new Error("Network response was not ok");
         }
 
-        const data = await response.json();
+        const data = response.data;
         console.log(data);
       } catch (error) {
         console.log(error);
