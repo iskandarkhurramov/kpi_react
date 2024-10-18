@@ -33,7 +33,7 @@ function LoginPage() {
     const dataniol = async () => {
       try {
         const response = await axios.post(
-          "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
+          "https://rtt.ssuv.uz/api/v1/hemis-id/hemis-auth",
           {
             redirect_url: "https://kpi-react-c74g.vercel.app",
             code: code,
@@ -191,7 +191,7 @@ function LoginPage() {
           <p className="mt-10 text-center text-sm text-gray-500">
             <a
               // onClick={otish}
-              href="https://hemis.otmsamvmi.uz/oauth/authorize?client_id=7&response_type=code&redirect_url=https%3A%2F%2Fkpi.ssuv.uz/login">
+              href="https://hemis.otmsamvmi.uz/oauth/authorize?client_id=8&response_type=code&redirect_uri=https%3A%2F%2Fkpi-react-c74g.vercel.app%2F">
               Hemis orqali kirish
             </a>
             {/* <button
