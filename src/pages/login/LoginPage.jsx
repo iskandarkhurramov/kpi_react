@@ -33,9 +33,9 @@ function LoginPage() {
     const dataniol = async () => {
       try {
         const response = await axios.post(
-          "https://rtt.ssuv.uz/api/v1/hemis-id/hemis-auth",
+          "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
           {
-            redirect_url: "https://kpi-react-c74g.vercel.app",
+            redirect_url: "https://kpi-react.vercel.app",
             code: code,
           }
         );
