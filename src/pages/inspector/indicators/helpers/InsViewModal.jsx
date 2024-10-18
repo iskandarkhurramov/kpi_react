@@ -4,17 +4,12 @@ import {
   MinusCircleIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { getData } from "../../../hooks/useFetch";
 
-function ViewModal({ closeModal, indicatorId }) {
+function InsViewModal({ closeModal }) {
+  const [url, setUrl] = useState("http://localhost:3000/articles");
+  const { data: works } = useFetch(url);
   const [checkStatus, setCheckStatus] = useState(true);
   const [submitBtn, setSubmitBtn] = useState(false);
-  const url =
-    "https://panel.ssuv.uz/api/v1/teacher/works/view?id=" + indicatorId;
-
-  console.log(url);
-  const { dataAll, isPanding, error } = getData(url);
-  console.log(dataAll?.data.result[0].file);
   const onSubmitFile = (e) => {
     e.preventDefault();
   };
@@ -69,11 +64,13 @@ function ViewModal({ closeModal, indicatorId }) {
             </div>
           </div>
           <div>
-            <h3 className="text-sm font-semibold">Fayllaringiz:</h3>
-            {dataAll?.data.success &&
-              dataAll?.data.result.map((work) => {
+            <h3 className="text-sm font-semibold">Ishlar</h3>
+            {works &&
+              works.map((work) => {
                 return (
-                  <div key={work.id} className=" last:mb-4">
+                  <div
+                    key={work.id}
+                    className="  last:mb-4 px-3 py-3 shadow-item hover:shadow-3xl my-2 md:my-6 md:px-5 rounded-md hover:scale-102 duration-200 grid grid-cols-12 gap-1 ">
                     <span className=" inline-block align-middle">
                       {checkStatus ? (
                         <CheckIcon className="h-6 w-6 text-green-500" />
@@ -81,16 +78,10 @@ function ViewModal({ closeModal, indicatorId }) {
                         <MinusCircleIcon className="h-6 w-6 text-gray-500" />
                       )}
                     </span>
-                    <a
-                      href={
-                        "https://panel.ssuv.uz/api/v1/teacher/works/view?id=" +
-                        indicatorId
-                      }
-                      download="file.pdf"
-                      className="inline-block">
+                    <a href="#" download className="inline-block">
                       <span className="mr-1 text-blue-500 text-base font-medium">
                         {" "}
-                        - {work.file}
+                        - {work.title}
                       </span>
                     </a>
                   </div>
@@ -133,4 +124,4 @@ function ViewModal({ closeModal, indicatorId }) {
   );
 }
 
-export default ViewModal;
+export default InsViewModal;

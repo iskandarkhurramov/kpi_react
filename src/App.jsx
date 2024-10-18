@@ -28,9 +28,17 @@ import Indicators from "./pages/inspector/indicators/Indicators";
 import InsProfile from "./pages/inspector/inspectorprofile/InsProfile";
 import Teachers from "./pages/inspector/teachers/Teachers";
 import IndicatorLayout from "./layout/IndicatorLayout";
-
+import AuthLogin from "./pages/login/AuthLogin";
+import Markes from "./pages/inspector/teachers/Markes";
+import Loading from "./pages/Loading";
+import TeachersLayout from "./layout/TeachersLayout";
+import InsIndecatorList from "./pages/inspector/indicators/InsIndicatorList";
+import Indicator from "./pages/inspector/indicators/Indicator";
+import InsCafideraLayout from "./layout/InsCafideraLayout";
+import { InsIndicatorId } from "./components/Context";
 function App() {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [insIndicatorIdVal, setInsIndecatorIdVal] = useState(null);
 
   const RequeryAuth = ({ children }) => {
     return token ? children : <Navigate to="/login" />;
@@ -38,6 +46,7 @@ function App() {
   const routes = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<MainLayout />}>
+        
         <Route element={<RootLayout />}>
           <Route
             path="/home"
@@ -64,15 +73,46 @@ function App() {
             }
           />
         </Route>
-        <Route element={<InspectorLayout />}>
-          <Route path="/inspector" element={<Inspector />} />
-          <Route path="indicators" element={<IndicatorLayout />}>
-            <Route index element={<Indicators />} />
-            <Route path=":teachers" element={<Teachers />} />
+        <Route
+          element={
+            <InsIndicatorId.Provider
+              value={{ insIndicatorIdVal, setInsIndecatorIdVal }}>
+              <RequeryAuth>
+                <InspectorLayout />
+              </RequeryAuth>
+            </InsIndicatorId.Provider>
+          }>
+          <Route
+            path="/inspector"
+            element={
+              <RequeryAuth>
+                <Inspector />
+              </RequeryAuth>
+            }
+          />
+          <Route path="/indicators" element={<InsCafideraLayout />}>
+            <Route
+              index
+              element={
+                <RequeryAuth>
+                  <Indicators />
+                </RequeryAuth>
+              }
+            />
+            <Route path=":id" element={<Indicator />} />
+            <Route path=":id/:indicatorid" element={<Teachers />} />
+            {/* <Route index element={<Indicator />} /> */}
+            {/* <Route path=":teachers" element={<TeachersLayout />}> */}
           </Route>
+          {/* <Route path=":markes" element={<Markes />} /> */}
+          {/* </Route> */}
+          {/* </Route> */}
           <Route path="/insprofile" element={<InsProfile />} />
         </Route>
         <Route element={<Prof />}>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/loading" element={<Loading />} />
+          <Route path="/authlogin" element={<AuthLogin />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/pagenotfound" element={<PageNotFound />} />
           <Route path="/teacher" element={<Home />} />

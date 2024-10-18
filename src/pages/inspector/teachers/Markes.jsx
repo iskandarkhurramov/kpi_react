@@ -3,24 +3,27 @@ import {
   CheckIcon,
   MinusCircleIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { getData } from "../../../hooks/useFetch";
 
-function ViewModal({ closeModal, indicatorId }) {
+function Markes({ closeModal, data }) {
   const [checkStatus, setCheckStatus] = useState(true);
-  const [submitBtn, setSubmitBtn] = useState(false);
-  const url =
-    "https://panel.ssuv.uz/api/v1/teacher/works/view?id=" + indicatorId;
+  const score = useRef(null);
+  const formIn = useRef(null);
+  console.log(score);
+  console.log(data);
+  // const url =
+  //   "https://panel.ssuv.uz/api/v1/teacher/works/view?id=" + indicatorId;
 
-  console.log(url);
-  const { dataAll, isPanding, error } = getData(url);
-  console.log(dataAll?.data.result[0].file);
+  // console.log(url);
+  // const { dataAll, isPanding, error } = getData(url);
+  // console.log(dataAll?.data.result[0].file);
   const onSubmitFile = (e) => {
     e.preventDefault();
+
+    closeModal();
   };
-  const showSubmitBtn = () => {
-    setSubmitBtn(true);
-  };
+
   return (
     <div>
       <div className="overlay fixed w-full h-full bg-bgoverlay top-0 left-0 flex justify-center items-center">
@@ -37,40 +40,24 @@ function ViewModal({ closeModal, indicatorId }) {
             </button>
           </div>
           <div>
-            <div className="indicator-group mb-3 ">
-              <p className="text-sm">Indicator guruhi:</p>
-              <p className="font-semibold">Indicator guruhi nomi</p>
-            </div>
-            <div className="indicator-name mb-2">
+            <div className="indicator-name mb-2 mt-2">
               <p className="text-sm">Indicator nomi:</p>
-              <p className="font-semibold">Indicator nomi</p>
+              <p className="font-semibold">{data.indicator}</p>
             </div>
             <div className="indicator-ball mb-2 flex">
-              <div className="px-1 bg-slate-400 p-1 m-1 grid content-between">
+              <div className="px-1 bg-slate-400 flex-grow p-1 m-1 grid content-between">
                 <span className="text-sm leading-liniin">Eng yuqori ball</span>
-                <span className="font-semibold block">15</span>
+                <span className="font-semibold block">{data.max_score}</span>
               </div>
-              <div className="px-1 bg-slate-400 p-1 m-1 grid content-between ">
-                <span className="text-sm leading-liniin">
-                  Ishtirokchilar soni
-                </span>
+              <div className="px-1 bg-slate-400 flex-grow p-1 m-1 grid content-between ">
+                <span className="text-sm leading-liniin">Quyilgan baho</span>
                 <span className="font-semibold block">1</span>
-              </div>
-              <div className="px-1 bg-slate-400 p-1 m-1 grid content-between ">
-                <span className="text-sm leading-liniin">
-                  Ishtirokchilar uchun eng yuqori ball
-                </span>
-                <span className="font-semibold block">15</span>
-              </div>
-              <div className="px-1 bg-slate-400 p-1 m-1 grid content-between ">
-                <span className="text-sm leading-liniin">Sizning balingiz</span>
-                <span className="font-semibold block">10</span>
               </div>
             </div>
           </div>
           <div>
-            <h3 className="text-sm font-semibold">Fayllaringiz:</h3>
-            {dataAll?.data.success &&
+            <h3 className="text-sm font-semibold">Fayllar:</h3>
+            {/* {dataAll?.data.success &&
               dataAll?.data.result.map((work) => {
                 return (
                   <div key={work.id} className=" last:mb-4">
@@ -83,8 +70,8 @@ function ViewModal({ closeModal, indicatorId }) {
                     </span>
                     <a
                       href={
-                        "https://panel.ssuv.uz/api/v1/teacher/works/view?id=" +
-                        indicatorId
+                        "https://panel.ssuv.uz/api/v1/professor/marks/download?id=" +
+                        work.id
                       }
                       download="file.pdf"
                       className="inline-block">
@@ -95,37 +82,35 @@ function ViewModal({ closeModal, indicatorId }) {
                     </a>
                   </div>
                 );
-              })}
+              })} */}
           </div>
 
-          <form className=" border-t-2 border-sky-700">
-            <div className="">
+          <form className=" border-t-2 border-sky-700" ref={formIn}>
+            <div className="mt-2">
               <label
                 htmlFor="inputFile"
                 className="block text-xs font-medium  text-orange-600 leading-liniin">
-                Agar natijangizni yaxshilamoqchi bo'lsangiz qo'shimcha fayl
-                yuklang!
+                Baho quying
               </label>
               <div className="mt-2">
                 <input
-                  onClick={showSubmitBtn}
-                  type="file"
-                  name="inputFile"
-                  id="inputFile"
+                  ref={score}
+                  type="number"
+                  name="inputScore"
+                  id="inputScore"
                   autoComplete="given-name"
-                  className="block w-full rounded-md border-0 px-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
-            {submitBtn && (
-              <div className="text-end mt-2">
-                <button
-                  className="py-1 px-3 text-white bg-indigo-600 rounded "
-                  onClick={onSubmitFile}>
-                  Yuklash
-                </button>
-              </div>
-            )}
+
+            <div className="text-end mt-2">
+              <button
+                className="py-1 px-3 text-white bg-indigo-600 rounded "
+                onClick={onSubmitFile}>
+                Saqalash
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -133,4 +118,4 @@ function ViewModal({ closeModal, indicatorId }) {
   );
 }
 
-export default ViewModal;
+export default Markes;

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-function IndicatorLayout() {
+function TeachersLayout() {
   return (
     <>
       <Outlet />
@@ -8,4 +8,4 @@ function IndicatorLayout() {
   );
 }
 
-export default IndicatorLayout;
+export default TeachersLayout;

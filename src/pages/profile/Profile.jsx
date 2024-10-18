@@ -5,36 +5,26 @@ import {
   EyeSlashIcon,
 } from "@heroicons/react/24/outline";
 import axios from "axios";
+import { getData } from "../../hooks/useFetch";
+import IsPanding from "../../components/IsPanding";
+import userImg from "../../assets/image/user2.jpg";
 function Profile() {
-  const [data, setData] = useState(null);
   const [url, setUrl] = useState(
     "https://panel.ssuv.uz/api/v1/teacher/user/profile"
   );
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((req) => {
-        const data = req.data;
-        setData(data);
-        console.log(req.data);
-      });
-  }, [url]);
+  const { dataAll, error, isPanding } = getData(url);
+
   const [img, setImg] = useState(false);
   const [visible, setVisible] = useState(false);
   return (
     <div>
-      {data && (
+      {dataAll && (
         <div className="mx-auto mt-28 max-w-90f px-2 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 mt-10">
             <div className="md:col-span-1 col-span-2 bg-gray-300 p-2 md:p-5 min-h-fit md:m-5 my-5 basis-11/12">
               <div className="text-center border-b-2 border-blue-600 py-3">
                 <img
-                  src={img ? img : "../../src/assets/image/user2.jpg"}
+                  src={img ? img : userImg}
                   alt="User image"
                   className="md:w-28 md:h-28 w-12 h-12 rounded-full mx-auto"
                 />
@@ -44,10 +34,12 @@ function Profile() {
                   <label
                     htmlFor="name"
                     className="block text-sm font-medium leading-6 text-gray-900">
-                    <span class="text-xs md:text-base font-semibold">Ism:</span>
+                    <span className="text-xs md:text-base font-semibold">
+                      Ism:
+                    </span>
                     <input
                       type="text"
-                      value={data.full_name}
+                      value={dataAll.data.full_name}
                       name="name"
                       id="name"
                       autoComplete="given-name"
@@ -60,12 +52,12 @@ function Profile() {
                   <label
                     htmlFor="surname"
                     className="block text-sm font-medium leading-6 text-gray-900">
-                    <span class="text-xs md:text-base font-semibold">
+                    <span className="text-xs md:text-base font-semibold">
                       Familiya:
                     </span>
                     <input
                       type="text"
-                      value={data.full_name}
+                      value={dataAll.data.full_name}
                       name="surname"
                       id="surname"
                       autoComplete="given-name"
@@ -78,12 +70,12 @@ function Profile() {
                   <label
                     htmlFor="last-name"
                     className="block text-sm font-medium leading-6 text-gray-900">
-                    <span class="text-xs md:text-base font-semibold">
+                    <span className="text-xs md:text-base font-semibold">
                       Otangizning ismi:
                     </span>
                     <input
                       type="text"
-                      value={data.full_name}
+                      value={dataAll.data.full_name}
                       name="last-name"
                       id="last-name"
                       autoComplete="given-name"
@@ -96,12 +88,12 @@ function Profile() {
                   <label
                     htmlFor="username"
                     className="block text-sm font-medium leading-6 text-gray-900">
-                    <span class="text-xs md:text-base font-semibold">
+                    <span className="text-xs md:text-base font-semibold">
                       Username:
                     </span>
                     <input
                       type="text"
-                      value={data.username}
+                      value={dataAll.data.username}
                       name="username"
                       id="username"
                       autoComplete="given-name"
@@ -206,6 +198,7 @@ function Profile() {
           </div>
         </div>
       )}
+      {isPanding && <IsPanding />}
     </div>
   );
 }

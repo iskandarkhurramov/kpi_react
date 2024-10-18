@@ -1,25 +1,92 @@
 import { Navigate } from "react-router-dom";
-import { indicatorAx } from "../../hooks/indicatorAx";
+
 import "./login.css";
-import { useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useRef, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import logoImg from "../../assets/image/logo.png";
 function LoginPage() {
+  const navigate = useNavigate();
+  const currentUrl = window.location.href;
+  console.log(currentUrl);
   const usernameIn = useRef(null);
   const location = useLocation();
   // const password = useRef(null);
   const emailIn = useRef(null);
+  // const otish = () => {
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get("code");
+    console.log(code);
+    // fetch("https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth", {
+    //   method: "POST",
 
-  const loginHemis = (e) => {
-    e.preventDefault();
-    fetch("https://panel.ssuv.uz/api/v1/hemis-id/auth-url", {
-      method: "POST",
-    });
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    //   body: JSON.stringify({
+    //     redirect_url: "http://127.0.0.1:5173/login",
+    //     code: code,
+    //   }),
+    // })
+    axios
+      .post("https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+        redirect_url: currentUrl,
+        code: code,
+      })
+      .then((req) => {
+        console.log(req);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // code degan qiymat ma'lumotlar bilan ishlovchi funksiya chaqirishingiz mumkin
+  }, [location]);
+  // };
+  const loginHemis = async () => {
+    try {
+      const response = await fetch(
+        "https://panel.ssuv.uz/api/v1/hemis-id/auth-url",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: JSON.stringify({
+            redirect_url: currentUrl,
+          }),
+        }
+      );
+      console.log(response);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
+    // axios
+    //   .post("https://panel.ssuv.uz/api/v1/hemis-id/auth-url", {
+    //     redirect_url: "http://127.0.0.1:5173/login",
+    //   })
+    //   .then((req) => {
+    //     console.log(req);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
   const onFormSubmit = (e) => {
     console.log(usernameIn.current.value, emailIn.current.value);
     e.preventDefault();
-    indicatorAx
+    axios
       .post("https://panel.ssuv.uz/api/v1/auth/login", {
         username: usernameIn.current.value,
         email: emailIn.current.value,
@@ -31,7 +98,7 @@ function LoginPage() {
           // Agar kirish muvaffaqiyatli bo'lsa, tokenni saqlash va home sahifasiga o'tish
           window.localStorage.setItem("token", data.token);
           // window.location.href = "../index.html";
-          window.location.href = "/";
+          navigate("/loading");
         } else {
           alert("Kirish xato. Iltimos, tekshirib qaytadan urinib ko‘ring.");
         }
@@ -40,14 +107,14 @@ function LoginPage() {
   };
   return (
     <div className="w-screen h-screen login-page">
-      <div className=" m-auto flex min-h-max flex-1 flex-col justify-center px-6 md:py-8 py-5 lg:px-8 max-w-80 md:max-w-lg bg-bg-login backdrop-blur-sm rounded ">
+      <div className=" m-auto flex min-h-max flex-1 flex-col justify-center px-6 md:py-8 py-5 lg:px-8 max-w-80 md:max-w-lg shadow-3xl backdrop-blur-sm rounded ">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            className="mx-auto md:h-28 h-12 w-auto"
-            src="./src/assets/image/logo.png"
+            className="mx-auto md:h-32 h-24 w-auto"
+            src={logoImg}
             alt="Your Company"
           />
-          <h2 className="md:mt-5 mt-4 text-center text-sm md:text-xl font-monospace font-medium leading-6 tracking-widest text-white">
+          <h2 className="md:mt-5 mt-4 text-center text-sm md:text-xl font-monospace font-black leading-6 tracking-widest text-seniy ">
             SAMARQAND DAVLAT VETERINARIYA MEDITSINASI CHORVACHILIK VA
             BIOTEXNOLOGIYALAR UNIVERSITETI
           </h2>
@@ -110,19 +177,24 @@ function LoginPage() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-full bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                className="flex w-full justify-center rounded-full bg-seniy px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Kirish
               </button>
             </div>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            <button
+            <a
+              // onClick={otish}
+              href="https://hemis.otmsamvmi.uz/oauth/authorize?client_id=7&response_type=code&redirect_url=https%3A%2F%2Fkpi.ssuv.uz/login">
+              Hemis orqali kirish
+            </a>
+            {/* <button
               type="button"
               onClick={loginHemis}
-              className="font-semibold leading-6 text-white hover:text-black">
+              className="font-semibold leading-6 text-seniy hover:text-black">
               Hemis orqali kirish
-            </button>
+            </button> */}
           </p>
         </div>
       </div>

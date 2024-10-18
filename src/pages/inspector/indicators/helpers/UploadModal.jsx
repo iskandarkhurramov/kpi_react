@@ -1,27 +1,12 @@
 import { useRef, useState } from "react";
 import axios from "axios";
-
-function UploadModal({
-  closeModal2,
-  indicatorId,
-  criteriaId,
-  teacherId,
-  notifySuccess,
-  notifyError,
-}) {
-  const [succes, setSucces] = useState(true);
-  const [error, setError] = useState(false);
+function UploadModal({ closeModal2, indicatorId, criteriaId, teacherId }) {
   const inFile = useRef(null);
   const inCount = useRef(null);
-  const inForm = useRef();
   const [data, setData] = useState(null);
   const [url, setUrl] = useState(
     "https://panel.ssuv.uz/api/v1/teacher/works/create"
   );
-
-  const resetForm = () => {
-    inForm.current.reset();
-  };
   console.log(indicatorId, criteriaId, teacherId);
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -37,10 +22,6 @@ function UploadModal({
     formData.append("file", inFile.current.files[0]);
     const postData = async () => {
       try {
-        if (!inFile) {
-          alert("Faylni tanlang!");
-          return;
-        }
         const response = await axios.post(url, formData, {
           headers: {
             // Accept: "application/json",
@@ -49,20 +30,11 @@ function UploadModal({
           },
         });
         console.log(response.data);
-        if (response) {
-          notifySuccess();
-          console.log("kjsvnYUklandi");
-        } else {
-          console.log("fsjdknfdsferrrreeerrerer");
-          notifyError();
-        }
       } catch (error) {
-        notifyError();
         console.log(error);
       }
     };
     postData();
-    closeModal2();
   };
   return (
     <div>
@@ -72,9 +44,9 @@ function UploadModal({
             Indecator nomi Lorem ipsum dolor sit amet Lorem ipsum dolor sit
             amet..
           </div>
-          <form className="mt-3" ref={inForm} onSubmit={onFormSubmit}>
+          <form className="mt-3" onSubmit={onFormSubmit}>
             <div className="">
-              <div>
+              <div className="">
                 <label
                   htmlFor="number-participants"
                   className="block text-sm font-medium leading-6 text-gray-900">
@@ -99,7 +71,6 @@ function UploadModal({
                   <input
                     ref={inFile}
                     type="file"
-                    accept=".pdf"
                     className="block w-full text-sm text-white rounded cursor-pointer
                     file:mr-4 file:py-2 file:px-4
                      file:border-1
@@ -121,7 +92,7 @@ function UploadModal({
               <button
                 type="button"
                 className="py-1 px-3 text-white bg-gray-600 rounded mx-2 text-sm md:text-base"
-                onClick={resetForm}>
+                onClick={closeModal2}>
                 Tozalash
               </button>
               <button

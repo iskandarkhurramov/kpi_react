@@ -21,6 +21,7 @@ export default {
         item: "10px 10px 25px rgba(0,0,0,0.5)",
         "3xl": "0px 10px 26px 5px rgba(43,38,209,0.64)",
         "3xlnav": "0px 10px 20px 5px rgba(0,0,0,0.5)",
+        caf: "1px 1px 41px 16px rgba(50,19,242,0.75)",
       },
       fontSize: {
         aa: "0.5rem",
@@ -29,6 +30,8 @@ export default {
       colors: {
         bgoverlay: "rgba(0,0,0,0.5)",
         "bg-login": "rgba(112, 128, 144, 0.7)",
+        seniy: "rgb(0,33,71)",
+        salert: "#73B473",
       },
       width: {
         inherit: "inherit",
@@ -47,6 +50,10 @@ export default {
           "Liberation Mono",
           "Courier New",
         ],
+      },
+      zIndex: {
+        100000: "100000",
+        1000000: "1000000",
       },
     },
   },

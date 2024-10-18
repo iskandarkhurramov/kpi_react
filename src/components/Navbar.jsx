@@ -7,7 +7,8 @@ import {
   ArrowPathIcon,
 } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
-
+import userImg from "../assets/image/user2.jpg";
+import logoImg from "../assets/image/logo.png";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -38,7 +39,7 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-10 w-auto"
-                    src="src/assets/image/logo.png"
+                    src={logoImg}
                     alt="Your Company"
                   />
                 </div>
@@ -46,7 +47,7 @@ export default function Navbar() {
                   <div className="flex space-x-4">
                     <NavLink
                       className="text-gray-300 hover:bg-indigo-800 hover:text-white rounded-md px-3 py-2 text-sm font-medium "
-                      to="/">
+                      to="/home">
                       Bosh sahifa
                     </NavLink>
                     <NavLink
@@ -59,10 +60,10 @@ export default function Navbar() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <a
-                  href="/"
+                  href="/home"
                   className="relative rounded-full  p-1 text-gray-400 hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
+                  <span className="sr-only">Refresh</span>
                   <ArrowPathIcon className="h-7 w-7" aria-hidden="true" />
                 </a>
 
@@ -74,8 +75,8 @@ export default function Navbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="src/assets/image/user2.jpg"
-                        alt=""
+                        src={userImg}
+                        alt="user"
                       />
                     </Menu.Button>
                   </div>
@@ -125,7 +126,7 @@ export default function Navbar() {
             <div className="space-y-1 px-2 pb-3 pt-2">
               <NavLink
                 className="text-gray-300  hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                to="/">
+                to="/home">
                 Home
               </NavLink>
               <NavLink

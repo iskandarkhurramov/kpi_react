@@ -7,7 +7,8 @@ import {
   ArrowPathIcon,
 } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
-
+import userImg from "../assets/image/user2.jpg";
+import logoImg from "../assets/image/logo.png";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -38,7 +39,7 @@ export default function InsNavbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-10 w-auto"
-                    src="src/assets/image/logo.png"
+                    src={logoImg}
                     alt="Your Company"
                   />
                 </div>
@@ -74,8 +75,8 @@ export default function InsNavbar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="src/assets/image/user2.jpg"
-                        alt=""
+                        src={userImg}
+                        alt="user"
                       />
                     </Menu.Button>
                   </div>

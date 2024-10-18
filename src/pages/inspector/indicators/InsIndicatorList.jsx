@@ -1,42 +1,28 @@
-import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
+import { InsIndicatorId } from "../../../components/Context";
+import { getData } from "../../../hooks/useFetch";
 
-function InsIndecatorList({ teacherId }) {
-  const [indicatorId, setIndicatorId] = useState(null);
-  const [criteriaId, setCriteriaId] = useState(null);
-  const [indicators, setIndecators] = useState("");
-  const [open, setOpen] = useState(false);
+function InsIndecatorList() {
+  const { insIndicatorIdVal, setInsIndecatorIdVal } =
+    useContext(InsIndicatorId);
+  console.log(insIndicatorIdVal);
+  const { id } = useParams();
 
   const [url, setUrl] = useState(
-    "https://panel.ssuv.uz/api/v1/teacher/indicator/index"
+    `https://panel.ssuv.uz/api/v1/professor/dashboard/indicator?id=${id}`
   );
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    axios
-      .get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((req) => {
-        const data = req.data;
-        setIndecators(data);
-        console.log(req.data);
-      });
-  }, [url]);
-  const showModal = () => {
-    setOpen(true);
-  };
 
-  // const { indicators, error, isPanding } = useFetch(url);
+  const { dataAll: indicators, isPanding, error } = getData(url);
+  console.log(indicators);
 
   return (
     <div>
-      {indicators.result &&
-        indicators.result.map((indicator) => {
+      {indicators?.data &&
+        indicators?.data.map((indicator) => {
           return (
             <div
               className="px-3 py-3 shadow-item hover:shadow-3xl my-2 md:my-6 md:px-5 rounded-md hover:scale-102 duration-200 grid grid-cols-12 gap-1 "
@@ -71,7 +57,7 @@ function InsIndecatorList({ teacherId }) {
               <div className="col-span-1 text-center h-full md:px-3  md:py-3">
                 <NavLink
                   className=" bg-indigo-800  rounded-md px-2 py-1 flex justify-center my-auto"
-                  to="/indicators/teachers">
+                  to={`/indicators/${id}/${indicator.id}`}>
                   <ChevronRightIcon className="h-3 w-3 md:h-6 md:w-6 text-white" />
                 </NavLink>
               </div>
