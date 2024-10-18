@@ -35,7 +35,7 @@ function LoginPage() {
         const response = await axios.post(
           "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
           {
-            redirect_url: currentUrl,
+            redirect_url: "https://kpi-react-c74g.vercel.app",
             code: code,
           }
         );
