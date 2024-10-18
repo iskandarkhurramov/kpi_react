@@ -191,7 +191,7 @@ function LoginPage() {
           <p className="mt-10 text-center text-sm text-gray-500">
             <a
               // onClick={otish}
-              href="https://hemis.otmsamvmi.uz/oauth/authorize?client_id=8&response_type=code&redirect_uri=https%3A%2F%2Fkpi-react-c74g.vercel.app%2F">
+              href="https://hemis.otmsamvmi.uz/oauth/authorize?client_id=8&response_type=code&redirect_uri=https%3A%2F%2Fkpi-react.vercel.app">
               Hemis orqali kirish
             </a>
             {/* <button
