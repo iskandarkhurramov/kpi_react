@@ -79,7 +79,7 @@ function LoginPage() {
           "https://panel.ssuv.uz/api/v1/user/test"
         );
 
-        if (!response.status === 200) {
+        if (response.status !== 200) {
           throw new Error("Network response was not ok");
         }
 
