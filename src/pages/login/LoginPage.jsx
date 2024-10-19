@@ -76,7 +76,7 @@ function LoginPage() {
       // dataniol();
       try {
         const response = await axios.get(
-          "https://panel.ssuv.uz/api/v1/user/test"
+          "https://panel.ssuv.uz/api/site/index"
         );
 
         if (response.status !== 200) {
