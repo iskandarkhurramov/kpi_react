@@ -48,19 +48,35 @@ function LoginPage() {
       // } catch (error) {
       //   console.log(error);
       // }
-      try {
-        const formData = new FormData();
-        formData.append("redirect_url", "https://kpi-react.vercel.app");
-        formData.append("code", code);
+      //   try {
+      //     const formData = new FormData();
+      //     formData.append("redirect_url", "https://kpi-react.vercel.app");
+      //     formData.append("code", code);
 
-        const response = await axios.post(
-          "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
+      //     const response = await axios.post(
+      //       "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
+      //       formData,
+      //       {
+      //         headers: {
+      //           "Content-Type": "multipart/form-data",
+      //         },
+      //       }
+      //     );
+
+      //     if (!response.status === 200) {
+      //       throw new Error("Network response was not ok");
+      //     }
+
+      //     const data = response.data;
+      //     console.log(data);
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // };
+      // dataniol();
+      try {
+        const response = await axios.get(
+          "https://panel.ssuv.uz/api/site/index"
         );
 
         if (!response.status === 200) {
