@@ -50,7 +50,7 @@ function LoginPage() {
       // }
       try {
         const formData = new FormData();
-        formData.append("redirect_url", "https://kpi-react.vercel.app");
+        formData.append("redirect_uri", "https://kpi-react.vercel.app");
         formData.append("code", code);
 
         const response = await axios.post(
