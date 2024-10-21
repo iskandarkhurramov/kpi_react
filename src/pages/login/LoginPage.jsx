@@ -103,7 +103,12 @@ function LoginPage() {
         redirect_uri: "https://kpi-react.vercel.app",
         code: code,
       }),
-    });
+    }).then((req) => {
+      const dataq = req.JSON()
+      return dataq 
+    }).then((dataw) => {
+      console.log(dataw)
+    })
   }, [location]);
   // };
   const loginHemis = async () => {
