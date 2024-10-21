@@ -30,50 +30,50 @@ function LoginPage() {
     //     code: code,
     //   }),
     // })
-    const dataniol = async () => {
-      // try {
-      //   const response = await axios.post(
-      //     "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
-      //     {
-      //       redirect_url: "https://kpi-react.vercel.app",
-      //       code: code,
-      //     }
-      //   );
-      //   if (!response.ok) {
-      //     throw new Error("Network response was not ok");
-      //   }
+    // const dataniol = async () => {
+    // try {
+    //   const response = await axios.post(
+    //     "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
+    //     {
+    //       redirect_url: "https://kpi-react.vercel.app",
+    //       code: code,
+    //     }
+    //   );
+    //   if (!response.ok) {
+    //     throw new Error("Network response was not ok");
+    //   }
 
-      //   const data = await response.json();
-      //   console.log(data);
-      // } catch (error) {
-      //   console.log(error);
-      // }
-      try {
-        const formData = new FormData();
-        formData.append("redirect_uri", "https://kpi-react.vercel.app");
-        formData.append("code", code);
+    //   const data = await response.json();
+    //   console.log(data);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    //   try {
+    //     const formData = new FormData();
+    //     formData.append("redirect_uri", "https://kpi-react.vercel.app");
+    //     formData.append("code", code);
 
-        const response = await axios.post(
-          "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+    //     const response = await axios.post(
+    //       "https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth",
+    //       formData,
+    //       {
+    //         headers: {
+    //           "Content-Type": "multipart/form-data",
+    //         },
+    //       }
+    //     );
 
-        if (response.status !== 200) {
-          throw new Error("Network response was not ok");
-        }
+    //     if (response.status !== 200) {
+    //       throw new Error("Network response was not ok");
+    //     }
 
-        const data = response.data;
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    dataniol();
+    //     const data = response.data;
+    //     console.log(data);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // dataniol();
     //   try {
     //     const response = await axios.get(
     //       "https://panel.ssuv.uz/api/site/index"
@@ -91,6 +91,19 @@ function LoginPage() {
     // };
     // dataniol();
     // code degan qiymat ma'lumotlar bilan ishlovchi funksiya chaqirishingiz mumkin
+    fetch("https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth", {
+      method: "post",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        //'Access-Control-Allow-Credentials': "*"
+      },
+      body: JSON.stringify({
+        redirect_uri: "https://kpi-react.vercel.app",
+        code: code,
+      }),
+    });
   }, [location]);
   // };
   const loginHemis = async () => {
