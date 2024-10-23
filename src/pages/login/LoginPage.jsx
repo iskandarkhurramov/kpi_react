@@ -91,7 +91,7 @@ function LoginPage() {
     // };
     // dataniol();
     // code degan qiymat ma'lumotlar bilan ishlovchi funksiya chaqirishingiz mumkin
-    fetch("https://panel.ssuv.uz/api/v1/hemis-id/hemis-auth", {
+    fetch("https://doniyorov.uz/api/v1/hemis-id/hemis-auth", {
       method: "post",
       mode: "cors",
       headers: {
